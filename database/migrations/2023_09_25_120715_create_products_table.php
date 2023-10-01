@@ -26,7 +26,6 @@ return new class extends Migration
             $table->date('offer_start_date')->nullable();
             $table->date('offer_end_date')->nullable();
             
-            $table->boolean('status');
             $table->integer('is_approved')->default(0);
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();

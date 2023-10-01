@@ -9,7 +9,7 @@
                 <h2>Add New Category</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin.subcategories.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('admin.childcategories.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -28,11 +28,11 @@
         
             
             <div class="mb-3">
-                <label for="example-select" class="form-label">Category</label>
+                <label for="example-select" class="form-label">SubCategory Name</label>
                 <select class="form-select" id="example-select" id="subcategory_id" name="subcategory_id">
-                    <option value=""></option>
-                    @foreach ($item as $loz)
-                        <option  value="{{$loz->id}}">{{$loz->subcategory_name}}</option>
+                    <option value="">Select a ChildCategory</option>
+                    @foreach ($item as $i)
+                        <option  value="{{$i->id}}">{{$i->subcategory_name}}</option>
                         
                     @endforeach
                 </select>

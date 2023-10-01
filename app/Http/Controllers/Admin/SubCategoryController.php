@@ -31,8 +31,8 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.subcategories.create', compact('categories'));
+        $data['category'] = DB::table('categories')->get();
+        return view('admin.subcategories.create',$data);
     }
     /**
      * Store a newly created resource in storage.
