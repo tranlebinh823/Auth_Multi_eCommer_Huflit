@@ -32,6 +32,7 @@ class BrandController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->except('_token');
+        $data['created_at'] = now();
 
         $logo = $request->logo;
         $image = time() . "-" . $logo->getClientOriginalName();
@@ -62,7 +63,7 @@ class BrandController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $data = $request->except('_token');
-       
+
         if (empty($data['logo'])) {
             $da['logo'] = DB::table('brands')->where('id', $id)->first();
             $data['logo'] = $da['logo']->logo;
@@ -74,7 +75,7 @@ class BrandController extends Controller
             $data['logo'] = $image;
         }
 
-        
+
         $data['updated_at'] = now();
         DB::table('brands')->where('id', $id)->update($data);
         return redirect()->route('admin.brands.index')->with('success', 'Chỉnh sửa thành công');

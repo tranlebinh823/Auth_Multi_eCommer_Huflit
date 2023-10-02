@@ -58,6 +58,13 @@ class PermissionTableSeeder extends Seeder
             'productimage-delete',
             'productimage-show',
 
+            'producttag-list',
+            'producttag-create',
+            'producttag-edit',
+            'producttag-delete',
+            'producttag-show',
+
+
             'vendor-list',
             'vendor-create',
             'vendor-edit',

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\TelegramController;
@@ -75,6 +76,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
         Route::prefix('products')->controller(ProductController::class)->name('products.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::get('show/{id}', 'show')->name('show');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('destroy/{id}', 'destroy')->name('destroy');
+        });
+        Route::prefix('product_images')->controller(ProductImageController::class)->name('product_images.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');

@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name' => 'required|string|max:255', // Ví dụ: yêu cầu tên thương hiệu là một chuỗi với độ dài tối đa 255 ký tự
+           'brand_name' => 'required|string|max:255', // Ví dụ: yêu cầu tên thương hiệu là một chuỗi với độ dài tối đa 255 ký tự
             'slug' => 'required|string|unique:brands,slug', // Ví dụ: yêu cầu slug là một chuỗi và duy nhất trong bảng "brands"
             'is_featured' => 'required|boolean', // Ví dụ: yêu cầu trường is_featured phải là boolean (true hoặc false)
             'status' => 'required|boolean', // Ví dụ: yêu cầu trường status phải là boolean (true hoặc false)
@@ -42,9 +42,9 @@ class StoreRequest extends FormRequest
             'logo.image' => 'Trường :attribute phải là một hình ảnh.',
             'logo.mimes' => 'Trường :attribute phải có định dạng jpeg, png, jpg hoặc gif.',
             'logo.max' => 'Trường :attribute không được vượt quá :max KB.',
-            'name.required' => 'Trường :attribute là bắt buộc.',
-            'name.string' => 'Trường :attribute phải là một chuỗi.',
-            'name.max' => 'Trường :attribute không được dài hơn :max ký tự.',
+            'brand_name.required' => 'Trường :attribute là bắt buộc.',
+            'brand_name.string' => 'Trường :attribute phải là một chuỗi.',
+            'brand_name.max' => 'Trường :attribute không được dài hơn :max ký tự.',
             'slug.required' => 'Trường :attribute là bắt buộc.',
             'slug.string' => 'Trường :attribute phải là một chuỗi.',
             'slug.unique' => 'Trường :attribute đã tồn tại trong hệ thống.',
@@ -64,7 +64,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'logo' => 'Logo',
-            'name' => 'Tên thương hiệu',
+            'brand_name' => 'Tên thương hiệu',
             'slug' => 'Slug',
             'is_featured' => 'Nổi bật',
             'status' => 'Trạng thái',

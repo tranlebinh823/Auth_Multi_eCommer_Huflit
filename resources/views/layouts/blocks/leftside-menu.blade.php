@@ -166,16 +166,16 @@
                         </li>
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarSecondLevel2.2" aria-expanded="false" aria-controls="sidebarSecondLevel2.2">
-                                <span>Image</span>
+                                <span>Product Images</span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="sidebarSecondLevel2.2">
                                 <ul class="side-nav-third-level">
                                     <li>
-                                        <a href="{{route('admin.brands.index')}}">List</a>
+                                        <a href="{{route('admin.product_images.index')}}">List</a>
                                     </li>
                                     <li>
-                                        <a href="{{route('admin.brands.create')}}">Create</a>
+                                        <a href="{{route('admin.product_images.create')}}">Create</a>
                                     </li>
                                 </ul>
                             </div>

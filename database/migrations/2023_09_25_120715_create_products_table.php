@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
@@ -13,22 +14,30 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('product_name');
+
+            //chuỗi tên sản phẩm
+            $table->string('slug')->unique();
             $table->text('thumb_image');
             $table->integer('qty');
             $table->text('short_description');
             $table->text('long_description');
             $table->text('video_link')->nullable();
+
+            //mã hàng hóa
             $table->string('sku')->nullable();
             $table->double('price');
             $table->double('offer_price')->nullable();
             $table->date('offer_start_date')->nullable();
             $table->date('offer_end_date')->nullable();
-            
+
+            //trạng thái sản phẩn 
             $table->integer('is_approved')->default(0);
+
+            //note
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
+
 
             //! sub_categories
             $table->unsignedBigInteger('sub_category_id')->nullable();
@@ -45,7 +54,11 @@ return new class extends Migration
             //! brands
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands');
+
             $table->timestamps();
+
+
+          
         });
     }
 

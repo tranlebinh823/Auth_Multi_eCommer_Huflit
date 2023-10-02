@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreRequest;
@@ -20,14 +21,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data['itemm'] = DB::table('products')
-        ->join('vendors', 'products.vendor_id', '=', 'vendors.id')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-        ->join('child_categories', 'products.child_category_id', '=', 'child_categories.id')
-        ->join('brands', 'products.brand_id', '=', 'brands.id')
-        ->select('vendors.*',  'categories.*', 'sub_categories.*', 'child_categories.*', 'brands.*','products.*')
-        ->get();
+        $data['item'] = DB::table('products')
+            ->join('vendors', 'products.vendor_id', '=', 'vendors.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+            ->join('child_categories', 'products.child_category_id', '=', 'child_categories.id')
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->select('vendors.*',  'categories.*', 'sub_categories.*', 'child_categories.*', 'brands.*', 'products.*')
+            ->get();
         return view('admin.products.index', $data);
     }
 
@@ -39,26 +40,25 @@ class ProductController extends Controller
         $data['vendor'] = DB::table('vendors')->get();
         $data['brand'] = DB::table('brands')->get();
 
-        return view('admin.products.create',$data);
-
-        
+        return view('admin.products.create', $data);
     }
 
     public function store(StoreRequest $request)
     {
         $data = $request->except('_token');
-
-        $thumb_image = $request->thumb_image;
-        $image = time() . "-" . $thumb_image->getClientOriginalName();
-        $path = public_path() . "/upload";
-        $thumb_image->move($path, $image);
-        $data['thumb_image'] = $image;
-
-
         $data['created_at'] = now();
+        $data['slug'] = Str::slug($data['product_name']);
+       
+        $logo = $request->thumb_image;
+        $image = time() . "-" . $logo->getClientOriginalName();
+        $path = public_path() . "/upload";
+        $logo->move($path, $image);
+        $data['thumb_image'] = $image;
+        $data['created_at'] = now();
+
+
         DB::table('products')->insert($data);
         return redirect()->route('admin.products.index')->with('success', 'Tạo thành công');
-
     }
 
     public function show(string $id)
@@ -80,7 +80,7 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $data = $request->except('_token');
-       
+
         $data['updated_at'] = now();
         DB::table('products')->where('id', $id)->update($data);
         return redirect()->route('admin.products.index')->with('success', 'Chỉnh sửa thành công');
